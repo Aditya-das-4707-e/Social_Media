@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import SideBar from "./components/SideBar";
 import CreatePost from "./components/CreatePost";
 import PostList from "./components/PostList";
+import PostListProvider from "./store/post-list-store";
 
 function App() {
   const [selectedTab, setselectedTab] = useState("Home");
