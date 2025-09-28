@@ -11,6 +11,7 @@ function App() {
 
   return (
     <>
+    <PostListProvider>
       <div className="app-container">
         <SideBar selectedTab={selectedTab} setselectedTab={setselectedTab}></SideBar>
         <div className="content">
@@ -19,6 +20,7 @@ function App() {
           <Footer />
         </div>
       </div>
+    </PostListProvider>
     </>
   );
 }
