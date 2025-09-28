@@ -2,6 +2,10 @@
   display: flex;
 }
 
-.content[
-  
-]
+.content{
+  width: 100%;
+}
+
+.sidebar{
+  min-height: 800px;
+}
