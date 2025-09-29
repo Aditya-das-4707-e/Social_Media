@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .app-container{
   display: flex;
 }
@@ -14,6 +19,10 @@
   margin: 20px 50px;
 }
 
-.tags{
+.HashTag{
   margin-right: 5px;
+}
+
+.reactions{
+  margin: 15px 0 0 0;
 }

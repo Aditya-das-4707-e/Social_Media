@@ -15,7 +15,9 @@ const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, DEFAULT_POST_LIST);
 
   const addPost = (post) => {};
-  const deletePost = (postId) => {};
+  const deletePost = (postId) => {
+    console.log("delete post with id", postId);
+  };
 
   return (
     <postListContext.Provider value={{ postList, addPost, deletePost }}>
