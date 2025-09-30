@@ -1,23 +1,74 @@
-import React from 'react';
+import React from "react";
 
 const CreatePost = () => {
   return (
     <div className="container my-4">
-      <form>
+      <form className="create-post">
+
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+          <label htmlFor="userId" className="form-label">
+            Enter your User ID
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="userId"
+            placeholder="Your <@user_id>"
+          />
         </div>
+
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword1" />
+          <label htmlFor="title" className="form-label">
+            Post Title
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="title"
+            placeholder="What’s happening?"
+          />
         </div>
-        <div className="mb-3 form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-          <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+
+        <div className="mb-3">
+          <label htmlFor="body" className="form-label">
+            Post Content
+          </label>
+          <textarea
+            type="text"
+            rows={6}
+            className="form-control"
+            id="body"
+            placeholder="Description...."
+          />
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+
+        <div className="mb-3">
+          <label htmlFor="reaction" className="form-label">
+            Number of Reactions
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="reaction"
+            placeholder="How many people reacted?"
+          />
+        </div>
+        
+        <div className="mb-3">
+          <label htmlFor="tags" className="form-label">
+            Enter your hashtags here
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="tags"
+            placeholder="Enter your tags using spaces"
+          />
+        </div>
+        
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
   );
