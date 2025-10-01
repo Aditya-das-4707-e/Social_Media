@@ -1,9 +1,21 @@
 import React from "react";
 
 const CreatePost = () => {
+
+  const userId = useRef()
+  const postTitle = useRef()
+  const postBody = useRef()
+  const reaction = useRef()
+  const tags = useRef()
+
+  const handleSubmit = (event) => {
+    
+  }
+
+
   return (
     <div className="container my-4">
-      <form className="create-post">
+      <form className="create-post" onSubmit={handleSubmit}>
 
         <div className="mb-3">
           <label htmlFor="userId" className="form-label">
@@ -11,6 +23,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
+            ref={userId}
             className="form-control"
             id="userId"
             placeholder="Your <@user_id>"
@@ -23,6 +36,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
+            ref={postTitle}
             className="form-control"
             id="title"
             placeholder="What’s happening?"
@@ -35,6 +49,7 @@ const CreatePost = () => {
           </label>
           <textarea
             type="text"
+            ref={postBody}
             rows={6}
             className="form-control"
             id="body"
@@ -48,6 +63,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
+            ref={reaction}
             className="form-control"
             id="reaction"
             placeholder="How many people reacted?"
@@ -60,6 +76,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
+            ref={tags}
             className="form-control"
             id="tags"
             placeholder="Enter your tags using spaces"
@@ -67,7 +84,7 @@ const CreatePost = () => {
         </div>
         
         <button type="submit" className="btn btn-primary">
-          Submit
+          Post 
         </button>
       </form>
     </div>
