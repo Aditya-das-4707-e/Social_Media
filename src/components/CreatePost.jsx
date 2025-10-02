@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
+import { postListContext } from "../store/post-list-store";
 
 const CreatePost = () => {
+  const { addPost } = useContext(postListContext)
 
-  const userId = useRef()
-  const postTitle = useRef()
-  const postBody = useRef()
-  const reaction = useRef()
-  const tags = useRef()
+  const userIdElement = useRef()
+  const postTitleElement = useRef()
+  const postBodyElement = useRef()
+  const reactionElement = useRef()
+  const tagsElement = useRef()
 
   const handleSubmit = (event) => {
-    
+    event.preventDefault();
+    const userId = userIdElement.current.value;
+    const postTitle = postTitleElement.current.value;
+    const postBody = postBodyElement.current.value;
+    const reactions = reactionElement.current.value;
+    const tags = tagsElement.current.value.split(" ");
+
+    addPost(userId, postTitle, postBody, reactions, tags)
   }
 
 
@@ -23,7 +32,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
-            ref={userId}
+            ref={userIdElement}
             className="form-control"
             id="userId"
             placeholder="Your <@user_id>"
@@ -36,7 +45,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
-            ref={postTitle}
+            ref={postTitleElement}
             className="form-control"
             id="title"
             placeholder="What’s happening?"
@@ -49,7 +58,7 @@ const CreatePost = () => {
           </label>
           <textarea
             type="text"
-            ref={postBody}
+            ref={postBodyElement}
             rows={6}
             className="form-control"
             id="body"
@@ -63,7 +72,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
-            ref={reaction}
+            ref={reactionElement}
             className="form-control"
             id="reaction"
             placeholder="How many people reacted?"
@@ -76,7 +85,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
-            ref={tags}
+            ref={tagsElement}
             className="form-control"
             id="tags"
             placeholder="Enter your tags using spaces"
