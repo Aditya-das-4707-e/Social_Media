@@ -17,8 +17,12 @@ const CreatePost = () => {
     const postBody = postBodyElement.current.value;
     const reactions = reactionElement.current.value;
     const tags = tagsElement.current.value.split(" ");
-
     addPost(userId, postTitle, postBody, reactions, tags)
+    userIdElement.current.value = "";
+    postTitleElement.current.value = "";
+    postBodyElement.current.value = "";
+    reactionElement.current.value = "";
+    tagsElement.current.value = "";
   }
 
 
