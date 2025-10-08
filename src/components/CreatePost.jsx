@@ -2,13 +2,13 @@ import React, { useContext, useRef } from "react";
 import { postListContext } from "../store/post-list-store";
 
 const CreatePost = () => {
-  const { addPost } = useContext(postListContext)
+  const { addPost } = useContext(postListContext);
 
-  const userIdElement = useRef()
-  const postTitleElement = useRef()
-  const postBodyElement = useRef()
-  const reactionElement = useRef()
-  const tagsElement = useRef()
+  const userIdElement = useRef();
+  const postTitleElement = useRef();
+  const postBodyElement = useRef();
+  const reactionElement = useRef();
+  const tagsElement = useRef();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,30 +16,73 @@ const CreatePost = () => {
     const postTitle = postTitleElement.current.value;
     const postBody = postBodyElement.current.value;
     const reactions = reactionElement.current.value;
-    const tags = tagsElement.current.value.split(" ");
-    addPost(userId, postTitle, postBody, reactions, tags)
+    const tags = tagsElement.current.value.split(" ").filter(tag => tag.trim() !== "");
+
+    // Clear form fields
     userIdElement.current.value = "";
     postTitleElement.current.value = "";
     postBodyElement.current.value = "";
     reactionElement.current.value = "";
     tagsElement.current.value = "";
-  }
 
+    // Create post object locally since API might fail
+    const newPost = {
+      id: Date.now(), // Generate unique ID
+      title: postTitle,
+      body: postBody,
+      reactions: parseInt(reactions) || 0,
+      userId: parseInt(userId) || 1,
+      tags: tags,
+    };
+
+    // Try API call, but add post locally regardless
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: postTitle,
+        body: postBody,
+        userId: parseInt(userId) || 1,
+        tags: tags,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then(apiPost => {
+        console.log("API Response:", apiPost);
+        // Transform API response to match our structure
+        const transformedPost = {
+          ...apiPost,
+          reactions: parseInt(reactions) || 0,
+          tags: apiPost.tags || tags
+        };
+        addPost(transformedPost);
+      })
+      .catch((error) => {
+        console.log("API failed, using local post:", error);
+        // Use locally created post if API fails
+        addPost(newPost);
+      });
+  };
 
   return (
     <div className="container my-4">
       <form className="create-post" onSubmit={handleSubmit}>
-
         <div className="mb-3">
           <label htmlFor="userId" className="form-label">
             Enter your User ID
           </label>
           <input
-            type="text"
+            type="number"
             ref={userIdElement}
             className="form-control"
             id="userId"
-            placeholder="Your <@user_id>"
+            placeholder="Your User ID"
+            required
           />
         </div>
 
@@ -52,7 +95,8 @@ const CreatePost = () => {
             ref={postTitleElement}
             className="form-control"
             id="title"
-            placeholder="What’s happening?"
+            placeholder="What's happening?"
+            required
           />
         </div>
 
@@ -61,12 +105,12 @@ const CreatePost = () => {
             Post Content
           </label>
           <textarea
-            type="text"
             ref={postBodyElement}
             rows={6}
             className="form-control"
             id="body"
             placeholder="Description...."
+            required
           />
         </div>
 
@@ -75,14 +119,15 @@ const CreatePost = () => {
             Number of Reactions
           </label>
           <input
-            type="text"
+            type="number"
             ref={reactionElement}
             className="form-control"
             id="reaction"
             placeholder="How many people reacted?"
+            defaultValue="0"
           />
         </div>
-        
+
         <div className="mb-3">
           <label htmlFor="tags" className="form-label">
             Enter your hashtags here
@@ -95,9 +140,9 @@ const CreatePost = () => {
             placeholder="Enter your tags using spaces"
           />
         </div>
-        
+
         <button type="submit" className="btn btn-primary">
-          Post 
+          Post
         </button>
       </form>
     </div>

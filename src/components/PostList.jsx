@@ -7,22 +7,8 @@ import WelcomeMessage from "./WelcomeMessage";
 import LodingSpinner from "./LodingSpinner";
 
 const PostList = () => {
-  const { postList, addInitialPosts } = useContext(postListData);
-  const [fetching, setFetching] = useState(false);
+  const { postList, fetching } = useContext(postListData);
 
-  useEffect(() => {
-    setFetching(true);
-    fetch("https://dummyjson.com/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        addInitialPosts(data.posts);
-        setFetching(false);
-      });
-
-      return () => {
-        console.log("cleaning up...");;
-      }
-  }, []);
 
   return (
     <div>
